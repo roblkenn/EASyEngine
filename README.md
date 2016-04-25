@@ -1,7 +1,7 @@
 # EasyEngine
 A game engine library written in Easy68k assembly language including 2d bitmap graphics, audio, and user input.
 
-# Credits
+## Credits
 Easy2D, EasySound, EasyInput, and EasyDemo written by **Robert Kennedy** 
 as of commit [e07b684](https://github.com/MartinVanBuren/EasyEngine/commit/e07b684ce068e1c42919791372fc531d8204d301)
 
