@@ -10,25 +10,21 @@
 START:                  ; first instruction of program
 
 ; Initialize Easy2D
-    MOVE.W  #4,D0               ; Set image scale to 8 pixels per square.
+    MOVE.W  #3,D0               ; Set image scale to 8 pixels per square.
     BSR     initializeEasy2D    ; Uses default color mask of $00FF00FF (magenta).
     
 ; Load image files into memory and store memory locations.
-    LEA     sonicRFilename,A1
+    LEA     daveFilename,A1
     BSR     loadImage
-    MOVE.L  A1,sonicR
+    MOVE.L  A1,dave
     
-    LEA     sonicLFilename,A1
+    LEA     daveRunRFilename,A1
     BSR     loadImage
-    MOVE.L  A1,sonicL
+    MOVE.L  A1,daveRunR
     
-    LEA     sonicRunRFilename,A1
+    LEA     daveRunLFilename,A1
     BSR     loadImage
-    MOVE.L  A1,sonicRunR
-    
-    LEA     sonicRunLFilename,A1
-    BSR     loadImage
-    MOVE.L  A1,sonicRunL
+    MOVE.L  A1,daveRunL
     
 ; Load sound files into audio memory.
     LEA     musicFilename,A1
@@ -42,26 +38,26 @@ START:                  ; first instruction of program
     REPEAT
     
     IF.B jumping <EQ> #0 THEN
-        IF.W sonicY <LT> #82 THEN
-            ADD.W   #2,sonicY
+        IF.W daveY <LT> #100 THEN
+            ADD.W   #2,daveY
         ENDI
     ENDI
     
-; Default sonic to standing image and set jump paramters
+; Default dave to standing image and set jump paramters
     MOVE.B  #0,running
     MOVE.B  #0,jumping
-    IF.W sonicY <EQ> #82 THEN
+    IF.W daveY <EQ> #100 THEN
         MOVE.B  #1,canJump
     ENDI
     
-; Get user input and set sonic to running if any movement key is pressed.
+; Get user input and set dave to running if any movement key is pressed.
     getKeyInput < ADQ>
     ifKey1
         ; Jump logic
         IF.B canJump <EQ> #1 THEN
-            IF.W sonicY <GT> #40 THEN
+            IF.W daveY <GT> #40 THEN
                 MOVE.B  #1,jumping
-                SUB.W   #2,sonicY
+                SUB.W   #2,daveY
             ELSE
                 MOVE.B  #0,canJump
             ENDI
@@ -71,13 +67,13 @@ START:                  ; first instruction of program
         ; Run left logic
         MOVE.B  #1,running
         MOVE.B  #0,facingR
-        SUB.W   #2,sonicX
+        SUB.W   #2,daveX
     endIfKey
     ifKey3
         ; Run right logic
         MOVE.B  #1,running
         MOVE.B  #1,facingR
-        ADD.W   #2,sonicX
+        ADD.W   #2,daveX
     endIfKey
     ifKey4
         ; Set quit trigger
@@ -87,19 +83,19 @@ START:                  ; first instruction of program
 ; Set image properties and draw to buffer
     IF.B running <EQ> #0 THEN
         IF.B facingR <EQ> #1 THEN
-            MOVE.L  sonicR,A1   ; Point to the sonic standing right image
+            MOVE.L  dave,A1   ; Point to the dave standing right image
         ELSE
-            MOVE.L  sonicL,A1   ; Point to the sonic standing left image
+            MOVE.L  dave,A1   ; Point to the dave standing left image
         ENDI
     ELSE
         IF.B facingR <EQ> #1 THEN
-            MOVE.L  sonicRunR,A1    ; Point to the sonic running right image
+            MOVE.L  daveRunR,A1    ; Point to the dave running right image
         ELSE
-            MOVE.L  sonicRunL,A1    ; Point to the sonic running left image
+            MOVE.L  daveRunL,A1    ; Point to the dave running left image
         ENDI
     ENDI
-    MOVE.W  sonicX,D4           ; Set x origin
-    MOVE.W  sonicY,D5           ; Set y origin
+    MOVE.W  daveX,D4           ; Set x origin
+    MOVE.W  daveY,D5           ; Set y origin
     BSR     displayImage        ; draws image to the back buffer
     
 ; Display back buffer
@@ -132,20 +128,18 @@ running        DC.B    0
 canJump        DC.B    1
 jumping        DC.B    0
 facingR        DC.B    1
-sonicX         DC.W    0
-sonicY         DC.W    82
+daveX          DC.W    0
+daveY          DC.W    100
 
 quit           DC.B    0
 
-sonicR         DS.L    1
-sonicL         DC.L    1
-sonicRunR      DC.L    1
-sonicRunL      DC.L    1
+dave           DS.L    1
+daveRunR       DC.L    1
+daveRunL       DC.L    1
 
-sonicRFilename      DC.B    'sonicR.bmp',0
-sonicLFilename      DC.B    'sonicL.bmp',0
-sonicRunRFilename   DC.B    'sonicRunR.bmp',0
-sonicRunLFilename   DC.B    'sonicRunL.bmp',0
+daveFilename        DC.B    'dave.bmp',0
+daveRunRFilename    DC.B    'daveRunR.bmp',0
+daveRunLFilename    DC.B    'daveRunL.bmp',0
 musicFilename       DC.B    'king.wav',0
 musicID             EQU     0
 musicOn             DC.B    1
@@ -154,6 +148,8 @@ musicOn             DC.B    1
     INCLUDE 'Easy2D.X68'
 
     END    START        ; last line of source
+
+
 
 
 
