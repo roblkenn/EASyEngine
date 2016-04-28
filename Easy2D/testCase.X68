@@ -9,27 +9,27 @@
 START:                  ; first instruction of program
 
 ; Initalize Easy2D
-    MOVE.W  #8,D0            ; Set scale to 8x
-    JSR     initializeEasy2D ; Use default image mask of $00FF00FF
+    MOVE.W  #4,D0               ; Set scale to 8x
+    JSR     initializeEasy2D    ; Use default image mask of $00FF00FF
 
-; Load sonic.bmp image from file into memory
-    LEA     sonic_filename,A1    ; Put filename string in A1
-    JSR     loadImage            ; Load image into memory
-    MOVE.L  A1,sonic_image       ; Store returned address of image data
+; Load dave.bmp image from file into memory
+    LEA     dave_filename,A1    ; Put filename string in A1
+    JSR     loadImage           ; Load image into memory
+    MOVE.L  A1,dave_image       ; Store returned address of image data
     
-; Load sonicRun.bmp image from file into memory
-    LEA     sonicRun_filename,A1 ; Put filename string in A1 
+; Load daveRun.bmp image from file into memory
+    LEA     daveRun_filename,A1  ; Put filename string in A1 
     JSR     loadImage            ; Load image into memory
-    MOVE.L  A1,sonicRun_Image    ; Store returned addres of image data
+    MOVE.L  A1,daveRun_Image     ; Store returned addres of image data
 
 ; Set image properties and draw to buffer
-    MOVE.L  sonic_image,A1  ; Point to sonic image
+    MOVE.L  dave_image,A1   ; Point to dave image
     MOVE.W  #0,D4           ; Set x origin
     MOVE.W  #0,D5           ; Set y origin
     JSR     displayImage    ; draws image to the back buffer
     
-    MOVE.L  sonicRun_image,A1 ; Point to sonicRun image
-    MOVE.W  #28,D4            ; Set x origin
+    MOVE.L  daveRun_image,A1  ; Point to daveRun image
+    MOVE.W  #48,D4            ; Set x origin
     MOVE.W  #0,D5             ; Set y origin
     JSR     displayImage      ; draws image to the back buffer
         
@@ -40,14 +40,15 @@ START:                  ; first instruction of program
 
     SIMHALT             ; halt simulator
 
-sonic_filename      DC.B    'sonic.bmp',0    ; Test image filename
-sonic_image         DS.L    1                ; Sonic image data pointer
-sonicRun_filename   DC.B    'sonicRun.bmp',0 ; Test image2 filename
-sonicRun_image      DS.L    1                ; SonicRun image data pointer
+dave_filename      DC.B    'dave.bmp',0     ; Test image filename
+dave_image         DS.L    1                ; dave image data pointer
+daveRun_filename   DC.B    'daveRun.bmp',0  ; Test image2 filename
+daveRun_image      DS.L    1                ; daveRun image data pointer
 
     INCLUDE 'Easy2D.X68'    ; Include image handling library
 
     END    START        ; last line of source
+
 
 
 

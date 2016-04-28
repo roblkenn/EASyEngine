@@ -140,7 +140,7 @@ daveRunL       DC.L    1
 daveFilename        DC.B    'dave.bmp',0
 daveRunRFilename    DC.B    'daveRunR.bmp',0
 daveRunLFilename    DC.B    'daveRunL.bmp',0
-musicFilename       DC.B    'king.wav',0
+musicFilename       DC.B    'allOfUs.wav',0
 musicID             EQU     0
 musicOn             DC.B    1
 
@@ -148,6 +148,7 @@ musicOn             DC.B    1
     INCLUDE 'Easy2D.X68'
 
     END    START        ; last line of source
+
 
 
 

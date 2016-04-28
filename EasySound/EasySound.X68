@@ -6,6 +6,7 @@
 *---------------------------------------------------
 
 dxEnabled   dc.b    1
+            ds.w    0
 
 loadSound  
     MOVEM.L     D0,-(SP) 
@@ -93,6 +94,8 @@ stopAllSoundsNDX
     RTS
     
     
+
+
 
 
 

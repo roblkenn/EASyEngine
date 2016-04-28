@@ -18,50 +18,50 @@ DELAY    MACRO
 START:                  ; first instruction of program
     
 ; Load music files into sound memory
-    LEA     mona,A1
-    MOVE.B  #monaID,D1
+    LEA     allofus,A1
+    MOVE.B  #allofusID,D1
     JSR     loadSound
     
-    LEA     epona,A1
-    MOVE.B  #eponaID,D1
+    LEA     ascending,A1
+    MOVE.B  #ascendingID,D1
     JSR     loadSound
     
-    LEA     war,A1
-    MOVE.B  #warID,D1
+    LEA     digital,A1
+    MOVE.B  #digitalID,D1
     JSR     loadSound
     
-    LEA     king,A1
-    MOVE.B  #kingID,D1
+    LEA     searching,A1
+    MOVE.B  #searchingID,D1
     JSR     loadSound
 ; Load music end
 
 ; Play each song for 10 seconds    
-    MOVE.B  #monaID,D1
+    MOVE.B  #allofusID,D1
     JSR     playSound
     DELAY   1000
     JSR     stopSound
     
-    MOVE.B  #eponaID,D1
+    MOVE.B  #ascendingID,D1
     JSR     playSound
     DELAY   1000
     JSR     stopSound
     
-    MOVE.B  #warID,D1
+    MOVE.B  #digitalID,D1
     JSR     playSound 
     DELAY   1000
     JSR     stopSound
 ; Play each finished
 
 ; Play multiple songs
-    MOVE.B  #monaID,D1
+    MOVE.B  #allofusID,D1
     JSR     playSound
     DELAY   200
     
-    MOVE.B  #eponaID,D1
+    MOVE.B  #ascendingID,D1
     JSR     playSound
     DELAY   200
     
-    MOVE.B  #warID,D1
+    MOVE.B  #digitalID,D1
     JSR     playSound
     DELAY   500
     
@@ -69,23 +69,24 @@ START:                  ; first instruction of program
 ; Play multiple songs end
 
 ; Loop final song
-    MOVE.B  #kingID,D1
+    MOVE.B  #searchingID,D1
     JSR     loopSound
 
     SIMHALT             ; halt simulator
 
-mona    dc.b    'inisMona.wav',0
-monaID  equ     0
-epona   dc.b    'aRoseForEpona.wav',0
-eponaID equ     1
-war     dc.b    'warOfTheGods.wav',0
-warID   equ     2
-king    dc.b    'king.wav',0
-kingID  equ     3
+allofus      dc.b    'allOfUs.wav',0
+allofusID    equ     0
+ascending    dc.b    'ascending.wav',0
+ascendingID  equ     1
+digital      dc.b    'digitalNative.wav',0
+digitalID    equ     2
+searching    dc.b    'searching.wav',0
+searchingID  equ     3
 
     INCLUDE     'EasySound.X68'
 
     END    START        ; last line of source
+
 
 
 
